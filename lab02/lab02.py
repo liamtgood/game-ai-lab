@@ -16,13 +16,27 @@
 # you have 4 kings and 3 queens, there are three best
 # hands: 4 kings along with any of the three queens).
 
+
+
 import itertools
+
 
 def best_hand(hand):
     "From a 7-card hand, return the best 5 card hand."
     # Your code here
-    pass
+    hands = list(itertools.combinations(hand, 5))
+    max_rank = hand_rank(hands[1])
+    max_hand = ""
+    for i in range(len(hands)):
+        rank = hand_rank(hands[i])
+        if(max_rank < rank):
+            max_rank = rank
+            max_hand = hands[i]
     
+    return max_hand
+    pass 
+    
+
 # ------------------
 # Provided Functions
 # 
@@ -88,11 +102,11 @@ def two_pair(ranks):
     
 def best_hand_try():
     assert (sorted(best_hand("6C 7C 8C 9C TC 5C JS".split()))
-            == ['6C', '7C', '8C', '9C', 'TC'])
+            == ['6C', '7C', '8C', '9C', 'TC']) #straight flush
     assert (sorted(best_hand("TD TC TH 7C 7D 8C 8S".split()))
-            == ['8C', '8S', 'TC', 'TD', 'TH'])
+            == ['8C', '8S', 'TC', 'TD', 'TH']) #full house
     assert (sorted(best_hand("JD TC TH 7C 7D 7S 7H".split()))
-            == ['7C', '7D', '7H', '7S', 'JD'])
+            == ['7C', '7D', '7H', '7S', 'JD']) #4 of a kind
     return 'test_best_hand passes'
 
 if __name__ == '__main__':
