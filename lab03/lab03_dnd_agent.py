@@ -15,7 +15,7 @@ messages = [{'role': 'system', 'content': 'You should have emotions like a human
                                 After character creation the adventure will begin. Make sure the adverture is very creative. '
                                 }]
 #asks if the player is ready to begin playing
-messages.append({'role': 'assistant', 'content': 'Are you ready to begin your adventure?'})
+messages.append({'role': 'assistant', 'content': 'Are you ready to begin your adventure? '})
 options = {'temperature': 0.5, 'max_tokens': 10}
 response = chat(model = model, messages = messages, stream = False, options = options)
 
@@ -44,3 +44,4 @@ with open(Path('lab03/attempts.txt'), 'a') as f:
   file_string += '\n\n\n------------------------END OF ATTEMPT------------------------\n\n\n'
   f.write(file_string)
 
+ 
