@@ -21,9 +21,9 @@ def run_console_chat(sign, **kwargs):
             break
 
 lab04_params = { 
-                "template_file":"lab04/lab04_trader_chat.json",
+                "template_file":'lab04/lab04_trader_chat.json',
                 "sign" : 'Liam',
-                "end_regex": 'Trader(.)DONE'
+                "end_regex": r'TRADER(.*)DONE'
                 }
 
 if __name__ ==  '__main__':
@@ -32,5 +32,5 @@ if __name__ ==  '__main__':
     run_console_chat(template_file=trader_template_file,
                      inventory = '[Mana Potion, Health Potion, Iron Sword]',
                      sign = 'Liam',
-                     end_regex = r'ORDER(.*)DONE')
+                     end_regex = r'TRADER(.*)DONE')
     
