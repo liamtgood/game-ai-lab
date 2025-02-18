@@ -10,7 +10,7 @@ def process_function_call(function_call):
     name = function_call.name
     args = function_call.arguments
 
-    return globals()[name](**args)
+    return globals()[name](**args)#globals()['getWeather'](**args)
 
 def get_weather(city):
     city_data = requests.get(f'https://geocoding-api.open-meteo.com/v1/search?name={city}&count=1&language=en&format=json')
