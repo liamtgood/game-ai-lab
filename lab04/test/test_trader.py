@@ -2,6 +2,8 @@ from math import exp
 from pathlib import Path
 import sys
 sys.path.append(str(Path(__file__).parents[2]))
+#new import
+import ast
 
 import json
 import pytest
@@ -45,6 +47,8 @@ def test_scenario(scenario):
             break
 
     # Compare to what we expect
+  
+    result = ast.literal_eval(result)  #changes result from string to list since it was a string and would not work
     print('Output: ',result)
     print('Expected: ',expected_response)
     assert not diff(json.loads(result), expected_response)
