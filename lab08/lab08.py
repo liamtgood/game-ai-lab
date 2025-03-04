@@ -29,8 +29,11 @@ class OllamaEmbeddingFunction:
     
     def __call__(self, input: List[str]) -> List[List[float]]:
         """Generate embeddings for a list of texts using Ollama"""
-        self.embed(model = 'llama3.2:latest', input = input)
-        pass
+        embeddings = ollama.embed(model = self.model_name, input = input)
+        result = embeddings.get("embedding",[])
+        return result
+        
+        #pass
 
 
 def load_documents(data_dir: str) -> Dict[str, str]:
@@ -117,12 +120,21 @@ def retrieve_context(collection: chromadb.Collection, query: str, n_results: int
     """
     Retrieve relevant context from ChromaDB based on the query
     """
+    #client  = chromadb.Client()
+    #collections = client.get_collection('collection')
 
-    results = collection.get(ids=["n_results"])["query"]
+    collection.query(
+        query_text = query 
+        where={}
+    )
+
+
+    
+    results = collection.get()
     print(results)
 
-
-    pass
+    return results
+    #pass
 
 
 
@@ -182,7 +194,7 @@ def main():
     llm_model = "llama3.2:latest"  # Change to your preferred LLM model
     
     # 1. Load documents
-    data_dir = "dnd-agent/lab08/data"
+    data_dir = "lab08/data"
     documents = load_documents(data_dir)
     
     # 2. Chunk documents using ChromaDB chunker
