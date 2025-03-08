@@ -29,10 +29,13 @@ class OllamaEmbeddingFunction:
     
     def __call__(self, input: List[str]) -> List[List[float]]:
         """Generate embeddings for a list of texts using Ollama"""
-        embeddings = ollama.embed(model = self.model_name, input = input)
-        result = embeddings.get("embedding",[])
-        return result
         
+        #get the response
+        response = ollama.embed(model=self.model_name, input=input)
+            
+        #return the embedidngs from the response
+        return response["embeddings"]
+
         #pass
 
 
@@ -120,22 +123,18 @@ def retrieve_context(collection: chromadb.Collection, query: str, n_results: int
     """
     Retrieve relevant context from ChromaDB based on the query
     """
-    #client  = chromadb.Client()
-    #collections = client.get_collection('collection')
-
-    collection.query(
-        query_text = query 
-        where={}
+    #query the results
+    results = collection.query(
+        query_texts=[query],
+        n_results=n_results
     )
 
-
-    
-    results = collection.get()
-    print(results)
-
-    return results
-    #pass
-
+    #Extract text chunks and ensure they are strings
+    context_chunks = [doc if isinstance(doc, str) else str(doc) for doc in results["documents"]]
+    print(f"Retrieved {len(context_chunks)} context chunks for the query: '{query}'")
+    #return chunchs
+    return context_chunks
+     
 
 
 def generate_response(query: str, contexts: List[str], model: str = "mistral:latest") -> str:
