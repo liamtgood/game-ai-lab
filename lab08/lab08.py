@@ -123,7 +123,7 @@ def retrieve_context(collection: chromadb.Collection, query: str, n_results: int
     """
     Retrieve relevant context from ChromaDB based on the query
     """
-    #query the results
+    #query the results//
     results = collection.query(
         query_texts=[query],
         n_results=n_results
