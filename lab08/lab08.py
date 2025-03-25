@@ -208,9 +208,10 @@ def main():
     # 4. Example queries
     queries = [
         "What abilities do wizards have in D&D?",
-        "Explain how a Bag of Holding works.",
-        "What happens if you roll a 20 with a Vorpal Sword?",
-        "Compare the abilities of fighters and rogues."
+        "What abilities do fighters have in D&D?",
+        "What abilities do rogues have in D&D?",
+        "What abilities do clerics have in D&D?",
+        "What abilities do bards have in D&D?",
     ]
     
     # 5. Run RAG for each query
