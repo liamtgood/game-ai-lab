@@ -3,7 +3,8 @@ import sys
 sys.path.append(str(Path(__file__).parents[1]))
 
 from ollama import chat
-from util.llm_utils import pretty_stringify_chat, ollama_seed as seed
+from util.llm_utils import run_console_chat, tool_tracker, TemplateChat, pretty_stringify_chat, ollama_seed as seed
+
 
 #model 
 sign_your_name = 'Liam Good'
@@ -20,11 +21,18 @@ options = {'temperature': 0.5, 'max_tokens': 10}
 response = chat(model = model, messages = messages, stream = False, options = options)
 
 # create the player character - name, class, stats, starting items
+messages.append({'role':'assistant','content':'Let\'s begin Character Creation! Chose A class: \n -Fighter \n -Wizard \n -Rogue \n -Cleric \n -Bard\n'})
+options = {'temperature': 0.5, 'max_tokens': 10}
+response = chat(model = model, messages = messages, stream = False, options = options)
+
+
 
 # once player selects a class use rag to describe that classes abilities
 
-# 
+# #store all this information somewhere
 
+
+# starts adventure
 options |= {'seed': seed(sign_your_name)}
 # Chat loop
 while True:
