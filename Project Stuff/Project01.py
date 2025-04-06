@@ -21,15 +21,13 @@ options = {'temperature': 0.5, 'max_tokens': 10}
 response = chat(model = model, messages = messages, stream = False, options = options)
 
 # create the player character - name, class, stats, starting items
-messages.append({'role':'assistant','content':'Let\'s begin Character Creation! Chose A class: \n -Fighter \n -Wizard \n -Rogue \n -Cleric \n -Bard\n'})
-options = {'temperature': 0.5, 'max_tokens': 10}
-response = chat(model = model, messages = messages, stream = False, options = options)
+#messages.append({'role':'assistant','content':'Let\'s begin Character Creation! Chose A class: \n -Fighter \n -Wizard \n -Rogue \n -Cleric \n -Bard\n'})
+#options = {'temperature': 0.5, 'max_tokens': 10}
+#response = chat(model = model, messages = messages, stream = False, options = options)
 
 
 
 # once player selects a class use rag to describe that classes abilities
-
-# #store all this information somewhere
 
 
 # starts adventure
