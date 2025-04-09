@@ -6,6 +6,15 @@ from types import MethodType
 # TODO Write your reward functions here
 def myreward(state):
     # Custom reward function
+    #reach goal
+    if(state =="G"):
+        return 1
+    #reach ice
+    if(state == "F"):
+        return 0
+    #fall through ice
+    if(state =="H"):
+        return -1
     pass
 
 # Create environment
