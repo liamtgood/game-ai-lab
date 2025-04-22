@@ -23,19 +23,21 @@ def roll_for(skill, dc, player):
         return f'{player} rolled {roll} for {skill} and failed!'
 
 def interact_with_trader(trader_file):
-    #loads trader template
-    with open(trader_file,'r') as file:
+    # Load the trader configuration from trader.json
+    with open(trader_file, 'r') as file:
         trader_data = json.load(file)
-    #display inventory
-    model = trader_data.get("model","default_model")
+
+    # Extract model, options, and messages
+    model = trader_data.get("model", "default_model")
     options = trader_data.get("options", {})
-    messages = trader_data.get("messages", []) 
-        # Use TemplateChat or another LLM utility to simulate the interaction
+    messages = trader_data.get("messages", [])
+
+    # Use TemplateChat or another LLM utility to simulate the interaction
     chat = TemplateChat(model=model, options=options, messages=messages)
     response = chat.completion()
 
     # Display the response from the trader
-    #print(response)
+    print(response)
     return response
 
 def handle_trader_interaction(trader_file, regular_model, regular_options, regular_messages):
@@ -50,24 +52,22 @@ def handle_trader_interaction(trader_file, regular_model, regular_options, regul
     return chat
 
 def process_response(self, response):
-    # Fill out this function to process the response from the LLM
-    # and make the function call 
-    #chat = TemplateChat.from_file(self)
-    #response = chat.completion(**{'ask': 'Roll for athletic skill to see if the player can pass over the ravine'})
-
-    #defaultdict(<class 'list'>, {'process_function_call_calls': [{'name': 'process_function_call', 'args': (Function(name='roll_for', arguments={'dc': 5, 'player': 'adventurer', 'skill': 'Athletics'}),), 'kwargs': {}, 'result': 'adventurer rolled 7 for Athletics and succeeded!'}]}) 
-
     if response.message.tool_calls:
-            self.messages.append({'role': 'tool',
-                            'name': response.message.tool_calls[0].function.name, 
-                            'arguments': response.message.tool_calls[0].function.arguments,
-                            'content': process_function_call(response.message.tool_calls[0].function)
-                            })
+        tool_name = response.message.tool_calls[0].function.name
+
+        # Handle only the 'roll_for' tool
+        if tool_name == "roll_for":
+            self.messages.append({
+                'role': 'tool',
+                'name': tool_name,
+                'arguments': response.message.tool_calls[0].function.arguments,
+                'content': process_function_call(response.message.tool_calls[0].function)
+            })
             response = self.completion()
     return response
 
 
-run_console_chat(template_file='Project Stuff\tools.json',
+run_console_chat(template_file='Project Stuff\_roll_for.json',
                  process_response=process_response)
 
 # Regular model configuration
