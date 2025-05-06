@@ -102,7 +102,7 @@ def process_response(self, response):
             response = self.completion()
     return response
 
-###RAG from lab8
+###RAG from lab8#########################
 class OllamaEmbeddingFunction:
     """Custom embedding function that uses Ollama for embeddings"""
     
@@ -244,8 +244,7 @@ def generate_response(query: str, contexts: List[str], model: str = "mistral:lat
     
     return response["response"]
 
-#####rag
-
+#####rag########################
 
 
 
@@ -291,10 +290,8 @@ while True:
 
     # Retrieve relevant lore chunks
     retrieved_chunks = retrieve_context(collection, user_input)
-
+    #if there is retrieved chunks do one, if not do the other
     if retrieved_chunks:
-        #print(f"Debug: Retrieved {len(retrieved_chunks)} chunks from lore.")  # Debugging statement
-
         # Generate a response using the retrieved context
         response = generate_response(user_input, retrieved_chunks, model=llm_model)
     else:
