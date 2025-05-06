@@ -102,7 +102,7 @@ def process_response(self, response):
             response = self.completion()
     return response
 
-###RAG
+###RAG from lab8
 class OllamaEmbeddingFunction:
     """Custom embedding function that uses Ollama for embeddings"""
     
@@ -220,13 +220,14 @@ def retrieve_context(collection: chromadb.Collection, query: str, n_results: int
 
 def generate_response(query: str, contexts: List[str], model: str = "mistral:latest") -> str:
     """
-    Generate a response using Ollama LLM with the retrieved context
+    Generate a response using the AI model with the retrieved context.
     """
-    # Create prompt with context
+    # Combine retrieved contexts into a single string
     context_text = "\n\n".join(contexts)
     
-    prompt = f"""You are a helpful assistant for Dungeons & Dragons players.
-    Use the following information to answer the question.
+    # Create a prompt that includes the retrieved context
+    prompt = f"""You are a helpful assistant for a Dungeons & Dragons game.
+    Use the following information to answer the player's question or guide them in the game.
     
     Context:
     {context_text}
@@ -235,6 +236,7 @@ def generate_response(query: str, contexts: List[str], model: str = "mistral:lat
     
     Answer:"""
     
+    # Generate a response using the AI model
     response = ollama.generate(
         model=model,
         prompt=prompt,
@@ -243,10 +245,6 @@ def generate_response(query: str, contexts: List[str], model: str = "mistral:lat
     return response["response"]
 
 #####rag
-
-
-
-
 
 
 
@@ -276,8 +274,8 @@ collection = setup_chroma_db(
 )
     
 #main loop
+# Main loop
 while True:
-
     # Get user input
     user_input = input("You: ").strip()
 
@@ -295,7 +293,7 @@ while True:
     retrieved_chunks = retrieve_context(collection, user_input)
 
     if retrieved_chunks:
-        print(f"Debug: Retrieved {len(retrieved_chunks)} chunks from lore.")  # Debugging statement
+        #print(f"Debug: Retrieved {len(retrieved_chunks)} chunks from lore.")  # Debugging statement
 
         # Generate a response using the retrieved context
         response = generate_response(user_input, retrieved_chunks, model=llm_model)
