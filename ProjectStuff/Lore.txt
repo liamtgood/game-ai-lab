@@ -50,3 +50,10 @@ This ornate helm allows you to communicate with others using your mind. While we
 
 ## Wand of Fireballs
 This wand has 7 charges. While holding it, you can use an action to expend 1 or more charges to cast the spell "Fireball" (save DC 15) from it. For 1 charge, you cast the spell at 3rd level. You can increase the spell level by one for each additional charge you expend. The wand regains 1d6 + 1 expended charges daily at dawn. If you expend the wand's last charge, roll a d20. On a 1, the wand crumbles into ashes and is destroyed.
+
+## Health Potion
+Used to restore 50 HP to the user
+
+## Mana Potion
+Used to restore 100 mana to the user
+
